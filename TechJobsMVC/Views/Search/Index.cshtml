@@ -8,10 +8,22 @@
         <p>
             @foreach (var column in ViewBag.columns)
             {
-                <span>
-                    <input type="radio" name="searchType" id="@column.Key" value="@column.Key" checked="@column.Key == 'all'" />
-                    <label for="@column.Key">@column.Value</label>
-                </span>
+            <span>
+
+                @if (ViewBag.type == column.Key)
+                {
+                    <input type="radio" name="searchType" id="@column.Key" value="@column.Key" checked />
+                }
+                else if (column.Key == "all")
+                {
+                    <input type="radio" name="searchType" id="@column.Key" value="@column.Key" checked />
+                }
+                else
+                {
+                    <input type="radio" name="searchType" id="@column.Key" value="@column.Key"  />
+                }
+                <label for="@column.Key">@column.Value</label>
+            </span>
             }
 
         </p>
@@ -36,10 +48,10 @@
                     <td>
                         ID: @job.Id <br />
                         Name: @job.Name <br />
-                        Employer: @job.Employer <br />
-                        Location: @job.Location <br />
-                        Position Type: @job.PositionType <br />
-                        Skill: @job.CoreCompetency <br />
+                        Employer: <a asp-controller="Search" asp-action="Results" asp-route-searchType="employer" asp-route-searchTerm="@job.Employer">@job.Employer</a> <br />
+                        Location: <a asp-controller="Search" asp-action="Results" asp-route-searchType="location" asp-route-searchTerm="@job.Location">@job.Location</a> <br />
+                        Position Type: <a asp-controller="Search" asp-action="Results" asp-route-searchType="positionType" asp-route-searchTerm="@job.PositionType">@job.PositionType</a> <br />
+                        Skill: <a asp-controller="Search" asp-action="Results" asp-route-searchType="coreCompetency" asp-route-searchTerm="@job.CoreCompetency">@job.CoreCompetency</a> <br />
                     </td>
                 </tr>
             }

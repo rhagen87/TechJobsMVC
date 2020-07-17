@@ -20,6 +20,9 @@ namespace TechJobsMVC.Controllers
 
         public IActionResult Results(string searchType, string searchTerm)
         {
+            ViewBag.columns = ListController.ColumnChoices;
+            ViewBag.type = searchType;
+
             if (searchTerm == "" || searchTerm == null)
             {
                 ViewBag.jobs = JobData.FindAll();
@@ -28,7 +31,6 @@ namespace TechJobsMVC.Controllers
             {
                 ViewBag.jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
             }
-            ViewBag.columns = ListController.ColumnChoices;
             return View("Index");
         }
     }
